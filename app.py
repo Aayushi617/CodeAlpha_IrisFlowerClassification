@@ -34,9 +34,14 @@ ax1.set_title("Count of Iris Species")
 st.pyplot(fig1)
 
 st.subheader("📈 Feature Correlation Heatmap")
+
+# Keep only numeric columns before correlation
+numeric_df = df.select_dtypes(include=['float64', 'int64'])  # Automatically excludes 'Species'
+
 fig2, ax2 = plt.subplots()
-sns.heatmap(df.drop("Id", axis=1).corr(), annot=True, cmap="coolwarm", ax=ax2)
+sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm", ax=ax2)
 st.pyplot(fig2)
+
 
 st.subheader("📦 Feature Distribution by Species (Box Plot)")
 selected_feature = st.selectbox("Choose a feature", ['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm'])
