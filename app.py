@@ -26,6 +26,25 @@ st.subheader("📊 Data Visualization")
 if st.checkbox("Show Pairplot"):
     fig = sns.pairplot(df.drop("Id", axis=1), hue="Species")
     st.pyplot(fig)
+    
+st.subheader("📌 Count of Each Iris Species")
+fig1, ax1 = plt.subplots()
+sns.countplot(data=df, x="Species", palette="Set2", ax=ax1)
+ax1.set_title("Count of Iris Species")
+st.pyplot(fig1)
+
+st.subheader("📈 Feature Correlation Heatmap")
+fig2, ax2 = plt.subplots()
+sns.heatmap(df.drop("Id", axis=1).corr(), annot=True, cmap="coolwarm", ax=ax2)
+st.pyplot(fig2)
+
+st.subheader("📦 Feature Distribution by Species (Box Plot)")
+selected_feature = st.selectbox("Choose a feature", ['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm'])
+fig3, ax3 = plt.subplots()
+sns.boxplot(data=df, x='Species', y=selected_feature, palette="Set3", ax=ax3)
+ax3.set_title(f"{selected_feature} Distribution by Species")
+st.pyplot(fig3)
+
 
 # Preprocessing
 X = df.drop(["Id", "Species"], axis=1)
